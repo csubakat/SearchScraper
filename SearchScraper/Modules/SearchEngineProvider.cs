@@ -6,16 +6,16 @@ namespace SearchScraper.Modules
 {
     public abstract class SearchEngineProvider : ISearchEngineProvider
     {
-        private bool IsValid(int nrOfResults, string searchTerm)
+        protected bool IsValid(int nrOfResults, string searchTerm)
         {
             return nrOfResults > 0 && !string.IsNullOrEmpty(searchTerm);
         }
 
-        private string CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
+        protected string CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
         {
             return $"{setting.BaseUrl}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}";
         }
 
-        public abstract IDictionary<int, string> GetResults();
+        public abstract IDictionary<int, string> GetResults(string queryTerm, int nrOfResults);
     }
 }

@@ -4,6 +4,6 @@ namespace SearchScraper.Contracts
 {
     public interface ISearchEngineProvider
     {
-        IDictionary<int, string> GetResults();
+        IDictionary<int, string> GetResults(string queryTerm, int nrOfResults);
     }
 }

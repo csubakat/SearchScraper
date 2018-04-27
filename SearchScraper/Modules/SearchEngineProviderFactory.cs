@@ -13,7 +13,7 @@ namespace SearchScraper.Modules
             _serviceProvider = serviceProvider;
         }
 
-        public ISearchEngineProvider Resolve(SearchEngine searchEngine)
+        public ISearchEngineProvider GetByName(SearchEngine searchEngine)
         {
             switch (searchEngine)
             {

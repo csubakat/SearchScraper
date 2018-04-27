@@ -4,6 +4,6 @@ namespace SearchScraper.Contracts
 {
     public interface ISearchEngineProviderFactory
     {
-        ISearchEngineProvider Resolve(SearchEngine searchEngine);
+        ISearchEngineProvider GetByName(SearchEngine searchEngine);
     }
 }
