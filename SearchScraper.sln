@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchScraper", "SearchScraper\SearchScraper.csproj", "{124D88CB-D6EF-490B-97EA-1F749F814A1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchScraper", "SearchScraper\SearchScraper.csproj", "{124D88CB-D6EF-490B-97EA-1F749F814A1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchScraper.Entitities", "SearchScraper.Entitities\SearchScraper.Entitities.csproj", "{C493A9BA-0E63-49CE-9F46-6B3D2768F22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchScraper.Entitities", "SearchScraper.Entitities\SearchScraper.Entitities.csproj", "{C493A9BA-0E63-49CE-9F46-6B3D2768F22F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchScraper.UnitTests", "SearchScraper.UnitTests\SearchScraper.UnitTests.csproj", "{AD2A9119-F1A0-4EC1-BD6F-00AC4BAE6989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C493A9BA-0E63-49CE-9F46-6B3D2768F22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C493A9BA-0E63-49CE-9F46-6B3D2768F22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C493A9BA-0E63-49CE-9F46-6B3D2768F22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2A9119-F1A0-4EC1-BD6F-00AC4BAE6989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2A9119-F1A0-4EC1-BD6F-00AC4BAE6989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2A9119-F1A0-4EC1-BD6F-00AC4BAE6989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2A9119-F1A0-4EC1-BD6F-00AC4BAE6989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

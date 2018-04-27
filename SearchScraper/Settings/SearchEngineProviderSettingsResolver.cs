@@ -10,7 +10,7 @@ namespace SearchScraper.Settings
         private readonly IConfiguration _configuration;
         private readonly SearchEngine _searchEngine;
 
-        private const string ParentSettingKey = "SearchEngineProviderSettingsResolver";
+        private const string ParentSettingKey = "SearchEngineProviderSettings";
         private const string SearchStringParameterSettingKey = "SearchStringParameter";
         private const string NumberOfResultsParameterSettingKey = "NumberOfResultsParameter";
         private const string BaseUrlParameterSettingKey = "BaseUrl";

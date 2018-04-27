@@ -17,7 +17,7 @@ namespace SearchScraper.Modules
 
         protected Uri CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
         {
-            return new Uri($"{setting.BaseUrl}{setting.SearchStringParameter}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
+            return new Uri($"{setting.BaseUrl}{Uri.EscapeDataString(setting.SearchStringParameter)}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
         }
 
         public abstract Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults);

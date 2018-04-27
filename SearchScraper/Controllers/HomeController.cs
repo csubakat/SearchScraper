@@ -22,6 +22,7 @@ namespace SearchScraper.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Search(string engine, string q, string f, int n = 100)
         {
             if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
