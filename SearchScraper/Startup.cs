@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SearchScraper.Contracts;
+using SearchScraper.Entitities.Enums;
 using SearchScraper.Modules;
 using SearchScraper.Services;
 using SearchScraper.Settings;
@@ -28,7 +27,8 @@ namespace SearchScraper
             services.AddSingleton<ISearchEngineProviderFactory, SearchEngineProviderFactory>();
             services.AddSingleton<IScrapingService, ScrapingService>();
 
-            services.AddTransient<GoogleEngine>();
+            services.AddTransient<GoogleEngine>(s => new GoogleEngine(new SearchEngineProviderSettingsResolver(SearchEngine.Google).GetSettings())
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

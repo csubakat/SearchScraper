@@ -8,6 +8,8 @@ namespace SearchScraper.Modules
 {
     public abstract class SearchEngineProvider : ISearchEngineProvider
     {
+        protected SearchEngineProvider(SearchEngineProviderSetting settings) { }
+
         protected bool IsValid(int nrOfResults, string searchTerm)
         {
             return nrOfResults > 0 && !string.IsNullOrEmpty(searchTerm);

@@ -27,7 +27,6 @@ namespace SearchScraper.Controllers
             if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
                 return BadRequest($"{engine} is not a supported engine.");
 
-
             var results = await _scrapingService.GetSearchResults(searchEngineEnum, q, f, n).ConfigureAwait(false);
             return View("Index", results);
         }

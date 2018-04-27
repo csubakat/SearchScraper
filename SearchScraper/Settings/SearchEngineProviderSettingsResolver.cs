@@ -5,17 +5,17 @@ using SearchScraper.Entitities.Enums;
 
 namespace SearchScraper.Settings
 {
-    public class SearchEngineProviderSettings
+    public class SearchEngineProviderSettingsResolver
     {
         private readonly IConfiguration _configuration;
         private readonly SearchEngine _searchEngine;
 
-        private const string ParentSettingKey = "SearchEngineProviderSettings";
+        private const string ParentSettingKey = "SearchEngineProviderSettingsResolver";
         private const string SearchStringParameterSettingKey = "SearchStringParameter";
         private const string NumberOfResultsParameterSettingKey = "NumberOfResultsParameter";
         private const string BaseUrlParameterSettingKey = "BaseUrl";
 
-        public SearchEngineProviderSettings(SearchEngine searchEngine)
+        public SearchEngineProviderSettingsResolver(SearchEngine searchEngine)
         {
             _searchEngine = searchEngine;
 
@@ -30,10 +30,15 @@ namespace SearchScraper.Settings
         {
             return new SearchEngineProviderSetting
             {
-                BaseUrl = _configuration[$"{ParentSettingKey}:{_searchEngine.ToString()}:{BaseUrlParameterSettingKey}"],
-                SearchStringParameter = _configuration[$"{ParentSettingKey}:{_searchEngine.ToString()}:{SearchStringParameterSettingKey}"],
-                NumberOfResultsParameter = _configuration[$"{ParentSettingKey}:{_searchEngine.ToString()}:{NumberOfResultsParameterSettingKey}"],
+                BaseUrl = GetSettingValue(BaseUrlParameterSettingKey),
+                SearchStringParameter = GetSettingValue(SearchStringParameterSettingKey),
+                NumberOfResultsParameter = GetSettingValue(NumberOfResultsParameterSettingKey),
             };
+        }
+
+        private string GetSettingValue(string settingKey)
+        {
+            return _configuration[$"{ParentSettingKey}:{_searchEngine.ToString()}:{settingKey}"];
         }
     }
 }

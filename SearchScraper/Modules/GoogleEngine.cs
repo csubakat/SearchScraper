@@ -4,8 +4,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SearchScraper.Entitities;
-using SearchScraper.Entitities.Enums;
-using SearchScraper.Settings;
 
 namespace SearchScraper.Modules
 {
@@ -13,10 +11,9 @@ namespace SearchScraper.Modules
     {
         private readonly SearchEngineProviderSetting _settings;
 
-        public GoogleEngine()
+        public GoogleEngine(SearchEngineProviderSetting settings) : base(settings)
         {
-            var settings = new SearchEngineProviderSettings(SearchEngine.Google);
-            _settings = settings.GetSettings();
+            _settings = settings;
         }
 
         public override async Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults)
