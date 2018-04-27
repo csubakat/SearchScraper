@@ -1,9 +1,9 @@
-﻿using SearchScraper.Modules;
+﻿using SearchScraper.Entitities.Enums;
 
 namespace SearchScraper.Contracts
 {
-    public interface ISearchEngineProviderFactory<T> where T : SearchEngineProvider
+    public interface ISearchEngineProviderFactory
     {
-        T Create();
+        ISearchEngineProvider Resolve(SearchEngine searchEngine);
     }
 }
