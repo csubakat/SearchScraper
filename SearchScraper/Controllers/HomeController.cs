@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SearchScraper.Contracts;
+using SearchScraper.Entitities.Enums;
 using SearchScraper.Models;
 
 namespace SearchScraper.Controllers
@@ -19,9 +21,14 @@ namespace SearchScraper.Controllers
             return View();
         }
 
-        public IActionResult Search(string queryString, int nrOfResults)
+        public IActionResult Search(string searchEngine, string searchString, int nrOfResults)
         {
+            if (!Enum.TryParse(searchEngine, true, out SearchEngine searchEngineEnum))
+                return BadRequest($"{searchEngine} is not a supported engine.");
 
+            var results = _scrapingService.GetSearchResults(searchEngineEnum, searchString, nrOfResults);
+
+            return View("Index", results);
         }
 
         public IActionResult Error()
