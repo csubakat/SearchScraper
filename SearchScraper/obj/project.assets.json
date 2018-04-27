@@ -4746,6 +4746,16 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "SearchScraper.Entitities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/SearchScraper.Entitities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SearchScraper.Entitities.dll": {}
+        }
       }
     }
   },
@@ -12527,12 +12537,18 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "SearchScraper.Entitities/1.0.0": {
+      "type": "project",
+      "path": "../SearchScraper.Entitities/SearchScraper.Entitities.csproj",
+      "msbuildProject": "../SearchScraper.Entitities/SearchScraper.Entitities.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.6",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "SearchScraper.Entitities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -12564,7 +12580,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Dev\\projects\\SearchScraper\\SearchScraper.Entitities\\SearchScraper.Entitities.csproj": {
+              "projectPath": "D:\\Dev\\projects\\SearchScraper\\SearchScraper.Entitities\\SearchScraper.Entitities.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

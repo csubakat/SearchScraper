@@ -1,0 +1,9 @@
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\bin\Debug\netcoreapp2.0\SearchScraper.Entitities.deps.json
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\bin\Debug\netcoreapp2.0\SearchScraper.Entitities.dll
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\bin\Debug\netcoreapp2.0\SearchScraper.Entitities.pdb
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.csprojResolveAssemblyReference.cache
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.csproj.CoreCompileInputs.cache
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.AssemblyInfoInputs.cache
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.AssemblyInfo.cs
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.dll
+D:\Dev\projects\SearchScraper\SearchScraper.Entitities\obj\Debug\netcoreapp2.0\SearchScraper.Entitities.pdb
