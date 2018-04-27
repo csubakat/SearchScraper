@@ -22,14 +22,13 @@ namespace SearchScraper.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Search(string searchEngine, string searchString, int nrOfResults = 100)
+        public async Task<IActionResult> Search(string engine, string q, string f, int n = 100)
         {
-            if (!Enum.TryParse(searchEngine, true, out SearchEngine searchEngineEnum))
-                return BadRequest($"{searchEngine} is not a supported engine.");
+            if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
+                return BadRequest($"{engine} is not a supported engine.");
 
 
-            var results = await _scrapingService.GetSearchResults(searchEngineEnum, searchString, nrOfResults).ConfigureAwait(false);
-
+            var results = await _scrapingService.GetSearchResults(searchEngineEnum, q, f, n).ConfigureAwait(false);
             return View("Index", results);
         }
 
@@ -39,3 +38,4 @@ namespace SearchScraper.Controllers
         }
     }
 }
+

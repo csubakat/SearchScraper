@@ -18,6 +18,6 @@ namespace SearchScraper.Modules
             return new Uri($"{setting.BaseUrl}{setting.SearchStringParameter}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
         }
 
-        public abstract Task<IDictionary<int, string>> GetResults(string searchString, int nrOfResults);
+        public abstract Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults);
     }
 }

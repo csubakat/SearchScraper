@@ -17,9 +17,9 @@ namespace SearchScraper.Services
             _searchEngineProviderFactory = searchEngineProviderFactory;
         }
 
-        public async Task<IDictionary<int, string>> GetSearchResults(SearchEngine searchEngine, string queryString, int nrOfResults)
+        public async Task<IEnumerable<int>> GetSearchResults(SearchEngine searchEngine, string searchTerm, string stringToFind, int nrOfResults)
         {
-            if (string.IsNullOrEmpty(queryString))
+            if (string.IsNullOrEmpty(searchTerm))
                 throw new ArgumentException("Search string cannot be empty");
 
             if (nrOfResults <= 0)
@@ -30,7 +30,7 @@ namespace SearchScraper.Services
 
             var provider = _searchEngineProviderFactory.GetByName(searchEngine);
 
-            return await provider.GetResults(queryString, nrOfResults);
+            return await provider.GetResults(searchTerm, stringToFind, nrOfResults);
         }
     }
 }
