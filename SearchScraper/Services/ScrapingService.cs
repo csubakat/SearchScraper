@@ -7,22 +7,27 @@ namespace SearchScraper.Services
 {
     public class ScrapingService : IScrapingService
     {
-        private readonly ISearchEngineProviderFactory _providerFactory;
+        private readonly ISearchEngineProviderFactory _searchEngineProviderFactory;
 
-        public ScrapingService(ISearchEngineProviderFactory providerFactory)
+        private const int MaxNrOfResultsToBeQueries = 100;
+
+        public ScrapingService(ISearchEngineProviderFactory searchEngineProviderFactory)
         {
-            _providerFactory = providerFactory;
+            _searchEngineProviderFactory = searchEngineProviderFactory;
         }
 
-        public IDictionary<int, string> GetResults(SearchEngine searchEngine, string queryString, int nrOfResults)
+        public IDictionary<int, string> GetSearchResults(SearchEngine searchEngine, string queryString, int nrOfResults)
         {
             if (string.IsNullOrEmpty(queryString))
                 throw new ArgumentException("Search string cannot be empty");
 
             if (nrOfResults <= 0)
-                throw new ArgumentException("Number of results must be greater than zero.");
+                throw new ArgumentException("Number of results to be queried must be greater than zero.");
 
-            var provider = _providerFactory.GetByName(searchEngine);
+            if (nrOfResults > MaxNrOfResultsToBeQueries)
+                throw new ArgumentException("Cannot query more than 100 results at a time.");
+
+            var provider = _searchEngineProviderFactory.GetByName(searchEngine);
 
             return provider.GetResults(queryString, nrOfResults);
         }
