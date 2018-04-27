@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SearchScraper.Contracts;
 using SearchScraper.Modules;
+using SearchScraper.Services;
 using SearchScraper.Settings;
 
 namespace SearchScraper
@@ -25,6 +26,8 @@ namespace SearchScraper
             services.AddMvc();
 
             services.AddSingleton<ISearchEngineProviderFactory, SearchEngineProviderFactory>();
+            services.AddSingleton<IScrapingService, ScrapingService>();
+
             services.AddTransient<GoogleEngine>();
         }
 
