@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using SearchScraper.Entitities;
 using SearchScraper.Entitities.Enums;
 using SearchScraper.Settings;
@@ -18,19 +19,23 @@ namespace SearchScraper.Modules
             _settings = settings.GetSettings();
         }
 
-        public override IDictionary<int, string> GetResults(string queryTerm, int nrOfResults)
+        public override async Task<IDictionary<int, string>> GetResults(string searchString, int nrOfResults)
         {
             string html;
             using (var webClient = new WebClient())
             {
-                html = webClient.DownloadString(CreateQueryUrl(_settings, queryTerm, nrOfResults));
+                html = await webClient.DownloadStringTaskAsync(CreateQueryUrl(_settings, searchString, nrOfResults));
             }
 
-            var regex = new Regex("<div class=\"g\">(.*?)</div>");
+            var regex = new Regex($"<cite class=\"iUh30\">({searchString})</cite>", RegexOptions.IgnoreCase);
             var matches = regex.Matches(html).ToList();
 
+            var indexes = matches.Select((x, i) => new { i, x })
+                .Select(x => x.i + 1)
+                .ToList();
+
             var occurences = (from m in matches
-                    where m.ToString().Contains(queryTerm)
+                    where m.ToString().Contains(searchString)
                     select new KeyValuePair<int, string>()).ToDictionary(x => x.Key, x => x.Value);
 
             return occurences;

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities;
 
@@ -11,11 +13,11 @@ namespace SearchScraper.Modules
             return nrOfResults > 0 && !string.IsNullOrEmpty(searchTerm);
         }
 
-        protected string CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
+        protected Uri CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
         {
-            return $"{setting.BaseUrl}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}";
+            return new Uri($"{setting.BaseUrl}{setting.SearchStringParameter}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
         }
 
-        public abstract IDictionary<int, string> GetResults(string queryTerm, int nrOfResults);
+        public abstract Task<IDictionary<int, string>> GetResults(string searchString, int nrOfResults);
     }
 }

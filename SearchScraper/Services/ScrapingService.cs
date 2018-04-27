@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
 
@@ -16,7 +17,7 @@ namespace SearchScraper.Services
             _searchEngineProviderFactory = searchEngineProviderFactory;
         }
 
-        public IDictionary<int, string> GetSearchResults(SearchEngine searchEngine, string queryString, int nrOfResults)
+        public async Task<IDictionary<int, string>> GetSearchResults(SearchEngine searchEngine, string queryString, int nrOfResults)
         {
             if (string.IsNullOrEmpty(queryString))
                 throw new ArgumentException("Search string cannot be empty");
@@ -29,7 +30,7 @@ namespace SearchScraper.Services
 
             var provider = _searchEngineProviderFactory.GetByName(searchEngine);
 
-            return provider.GetResults(queryString, nrOfResults);
+            return await provider.GetResults(queryString, nrOfResults);
         }
     }
 }
