@@ -1,11 +1,10 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SearchScraper.Entitities;
 using SearchScraper.Entitities.Enums;
 
-namespace SearchScraper.Settings
+namespace SearchScraper
 {
-    public class SearchEngineProviderSettingsResolver
+    internal class SearchEngineProviderSettingsResolver
     {
         private readonly IConfiguration _configuration;
         private readonly SearchEngine _searchEngine;
@@ -15,18 +14,13 @@ namespace SearchScraper.Settings
         private const string NumberOfResultsParameterSettingKey = "NumberOfResultsParameter";
         private const string BaseUrlParameterSettingKey = "BaseUrl";
 
-        public SearchEngineProviderSettingsResolver(SearchEngine searchEngine)
+        internal SearchEngineProviderSettingsResolver(SearchEngine searchEngine, IConfiguration configuration)
         {
             _searchEngine = searchEngine;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            _configuration = builder.Build();
+            _configuration = configuration;
         }
 
-        public SearchEngineProviderSetting GetSettings()
+        internal SearchEngineProviderSetting GetSettings()
         {
             return new SearchEngineProviderSetting
             {
