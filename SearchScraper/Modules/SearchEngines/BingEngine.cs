@@ -62,7 +62,7 @@ namespace SearchScraper.Modules.SearchEngines
 
         private async Task<string> GetSearchResultAsync(string searchTerm, int nrOfResults, int offset = 0)
         {
-            var queryUri = CreateQueryUri(_settings, searchTerm, nrOfResults);
+            var queryUri = $"{CreateQueryUri(_settings, searchTerm, nrOfResults)}&offset={offset}";
 
             var request = WebRequest.Create(queryUri);
             request.Headers[AccessKeyHeader] = _apiAccessKey;
