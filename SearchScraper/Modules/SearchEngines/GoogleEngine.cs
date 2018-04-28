@@ -28,10 +28,11 @@ namespace SearchScraper.Modules.SearchEngines
                 html = await webClient.DownloadStringTaskAsync(CreateQueryUri(_settings, searchTerm, nrOfResults));
             }
 
+
             var resultNodeRegex = new Regex("<div class=\"g\">(.*?)</div>", RegexOptions.IgnoreCase);
 
             var matches = resultNodeRegex.Matches(html).ToList();
-            //TODO understand and rewrite to something more readable
+
             var occurences = matches.Select((x, i) => new { i, x })
                 .Where(x => x.ToString().Contains(stringToFind))
                 .Select(x => x.i + 1)
