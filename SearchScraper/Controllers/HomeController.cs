@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
+using SearchScraper.Exceptions;
 using SearchScraper.Models;
 
 namespace SearchScraper.Controllers
@@ -25,11 +26,24 @@ namespace SearchScraper.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string engine, string q, string f, int n = 100)
         {
-            if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
-                return BadRequest($"{engine} is not a supported engine.");
+            var invalidSearchEngineMessage = $"{engine} is not supported yet.";
 
-            var results = await _scrapingService.GetSearchResults(searchEngineEnum, q, f, n).ConfigureAwait(false);
-            return View("Index", results);
+            if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
+                return BadRequest(invalidSearchEngineMessage);
+
+            try
+            {
+                var results = await _scrapingService.GetSearchResults(searchEngineEnum, q, f, n).ConfigureAwait(false);
+                return View("Index", results);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidSearchEngineException ex)
+            {
+                return BadRequest(invalidSearchEngineMessage);
+            }
         }
 
         public IActionResult Error()

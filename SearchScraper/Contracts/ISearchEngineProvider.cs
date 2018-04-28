@@ -5,6 +5,6 @@ namespace SearchScraper.Contracts
 {
     public interface ISearchEngineProvider
     {
-        Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults);
+        Task<IEnumerable<int>> GetOccurences(string searchTerm, string stringToFind, int nrOfResults);
     }
 }

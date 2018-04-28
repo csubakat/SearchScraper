@@ -1,6 +1,7 @@
 ﻿using System;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
+using SearchScraper.Exceptions;
 
 namespace SearchScraper.Modules
 {
@@ -20,7 +21,7 @@ namespace SearchScraper.Modules
                 case SearchEngine.Google:
                     return (ISearchEngineProvider)_serviceProvider.GetService(typeof(GoogleEngine));
                 default:
-                    return null;
+                    throw new InvalidSearchEngineException();
             }
         }
     }

@@ -20,17 +20,17 @@ namespace SearchScraper.Services
         public async Task<IEnumerable<int>> GetSearchResults(SearchEngine searchEngine, string searchTerm, string stringToFind, int nrOfResults)
         {
             if (string.IsNullOrEmpty(searchTerm) || string.IsNullOrEmpty(stringToFind))
-                throw new ArgumentException("Search term and string to find cannot be empty");
+                throw new ArgumentException("Search term and string to find cannot be empty.");
 
             if (nrOfResults <= 0)
-                throw new ArgumentException("Number of results to be queried must be greater than zero.");
+                throw new ArgumentException("Number of results to be queried must be greater than 0.");
 
             if (nrOfResults > MaxNrOfResultsToBeQueries)
                 throw new ArgumentException("Cannot query more than 100 results at a time.");
 
             var provider = _searchEngineProviderFactory.GetByName(searchEngine);
 
-            return await provider.GetResults(searchTerm, stringToFind, nrOfResults);
+            return await provider.GetOccurences(searchTerm, stringToFind, nrOfResults);
         }
     }
 }

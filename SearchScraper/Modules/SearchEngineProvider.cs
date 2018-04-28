@@ -20,6 +20,6 @@ namespace SearchScraper.Modules
             return new Uri($"{setting.BaseUrl}{Uri.EscapeDataString(setting.SearchStringParameter)}{queryTerm}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
         }
 
-        public abstract Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults);
+        public abstract Task<IEnumerable<int>> GetOccurences(string searchTerm, string stringToFind, int nrOfResults);
     }
 }

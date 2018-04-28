@@ -16,15 +16,17 @@ namespace SearchScraper.Modules
             _settings = settings;
         }
 
-        public override async Task<IEnumerable<int>> GetResults(string searchTerm, string stringToFind, int nrOfResults)
+        public override async Task<IEnumerable<int>> GetOccurences(string searchTerm, string stringToFind, int nrOfResults)
         {
             string html;
+
+            //TODO create wrapper for WebClient http://brunov.info/blog/2013/07/30/tdd-mocking-system-net-webclient/
             using (var webClient = new WebClient())
             {
                 html = await webClient.DownloadStringTaskAsync(CreateQueryUrl(_settings, searchTerm, nrOfResults));
             }
 
-            var resultNodeRegex = new Regex($"<div class=\"g\">(.*?)</div>", RegexOptions.IgnoreCase);
+            var resultNodeRegex = new Regex("<div class=\"g\">(.*?)</div>", RegexOptions.IgnoreCase);
 
             var matches = resultNodeRegex.Matches(html).ToList();
             //TODO understand and rewrite to something more readable
