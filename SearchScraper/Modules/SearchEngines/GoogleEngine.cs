@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace SearchScraper.Modules.SearchEngines
         private readonly SearchEngineProviderSetting _settings;
         private readonly IWebClientFactory _webClientFactory;
 
-        public GoogleEngine(SearchEngineProviderSetting settings, IWebClientFactory webClientFactory) : base(settings, webClientFactory)
+        public GoogleEngine(SearchEngineProviderSetting settings, IWebClientFactory webClientFactory) : base(settings)
         {
             _settings = settings;
             _webClientFactory = webClientFactory;
@@ -24,7 +25,7 @@ namespace SearchScraper.Modules.SearchEngines
 
             using (var webClient = _webClientFactory.Create())
             {
-                html = await webClient.DownloadStringTaskAsync(CreateQueryUrl(_settings, searchTerm, nrOfResults));
+                html = await webClient.DownloadStringTaskAsync(CreateQueryUri(_settings, searchTerm, nrOfResults));
             }
 
             var resultNodeRegex = new Regex("<div class=\"g\">(.*?)</div>", RegexOptions.IgnoreCase);

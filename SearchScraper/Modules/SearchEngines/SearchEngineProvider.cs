@@ -8,9 +8,9 @@ namespace SearchScraper.Modules.SearchEngines
 {
     public abstract class SearchEngineProvider : ISearchEngineProvider
     {
-        protected SearchEngineProvider(SearchEngineProviderSetting settings, IWebClientFactory webClientFactory) { }
+        protected SearchEngineProvider(SearchEngineProviderSetting settings) { }
 
-        protected Uri CreateQueryUrl(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
+        protected Uri CreateQueryUri(SearchEngineProviderSetting setting, string queryTerm, int nrOfResults)
         {
             return new Uri($"{setting.BaseUrl}{setting.SearchStringParameter}{Uri.EscapeDataString(queryTerm)}&{setting.NumberOfResultsParameter}{nrOfResults}", UriKind.Absolute);
         }

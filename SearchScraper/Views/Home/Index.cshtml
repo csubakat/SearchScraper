@@ -36,12 +36,14 @@
     <div class="row">
         @if (Model?.Occurences != null && Model.Occurences.Any())
         {
-            foreach (var result in Model.Occurences)
-            {
-                <div class="col-md-3">
-                    <p>@result</p>
-                </div>
-            }
+            <h1>Indexes of occurences found:</h1>
+            <ul class="list-group">
+                @foreach (var result in Model.Occurences)
+                {
+                    <li class="list-group-item">@result</li>
+                }
+            </ul>
+                
         }
     </div>
 

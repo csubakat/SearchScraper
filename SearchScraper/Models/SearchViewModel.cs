@@ -24,7 +24,7 @@ namespace SearchScraper.Models
             {
                 new SelectListItem {Text = "25", Value = "25"},
                 new SelectListItem {Text = "50", Value = "50"},
-                new SelectListItem {Text = "76", Value = "76"},
+                new SelectListItem {Text = "75", Value = "75"},
                 new SelectListItem {Text = "100", Value = "100", Selected = true}
             };
 

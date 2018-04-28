@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
-using SearchScraper.Modules.Clients;
+using SearchScraper.Modules;
 using SearchScraper.Modules.Factories;
 using SearchScraper.Modules.SearchEngines;
 using SearchScraper.Services;
@@ -31,6 +31,7 @@ namespace SearchScraper
             services.AddSingleton<IWebClient, SystemWebClient>();
 
             var appSettingsConfig = CreateConfiguration("appsettings.json");
+            var credentialsConfig = CreateConfiguration("credentials.json");
 
             services.AddTransient<GoogleEngine>(s =>
             {
@@ -42,7 +43,7 @@ namespace SearchScraper
             {
                 var settings = new SearchEngineProviderSettingsResolver(SearchEngine.Bing, appSettingsConfig)
                     .GetSettings();
-                return new BingEngine(settings, new WebClientFactory());
+                return new BingEngine(settings, credentialsConfig["AccessKeys:BingApi"], new StreamReaderFactory());
             });
         }
 
