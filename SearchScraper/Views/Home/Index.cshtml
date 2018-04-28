@@ -10,11 +10,11 @@
         {
             <div class="row well">
                 <div class="form-group col-md-3">
-                    <label>Search</label>
+                    <label>Search for</label>
                     @Html.TextBoxFor(m => m.SearchTerm, null, new { @class = "form-control", @placeholder = "Enter term to search for" })
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Find</label>
+                    <label>Find keyword</label>
                     @Html.TextBoxFor(m => m.StringToFind, null, new { @class = "form-control", @placeholder = "Occurences to find" })
                 </div>
                 <div class="form-group col-md-3">
@@ -36,14 +36,20 @@
     <div class="row">
         @if (Model?.Occurences != null && Model.Occurences.Any())
         {
-            <h1>Indexes of occurences found:</h1>
-            <ul class="list-group">
-                @foreach (var result in Model.Occurences)
-                {
-                    <li class="list-group-item">@result</li>
-                }
-            </ul>
-                
+            if (Model.Occurences.Count() == 1 && Model.Occurences.First() == 0)
+            {
+                <h1>No occurence</h1>
+            }
+            else
+            {
+                <h1>Indexes of occurences found:</h1>
+                <ul class="list-group">
+                    @foreach (var result in Model.Occurences)
+                    {
+                        <li class="list-group-item">@result</li>
+                    }
+                </ul>
+            }    
         }
     </div>
 

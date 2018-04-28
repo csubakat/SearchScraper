@@ -12,8 +12,8 @@ namespace SearchScraper.Modules.SearchEngines
     public class BingEngine : SearchEngineProvider
     {
         private readonly SearchEngineProviderSetting _settings;
-        private readonly string _apiAccessKey;
         private readonly IStreamReaderFactory _streamReaderFactory;
+        private readonly string _apiAccessKey;
 
         private const string AccessKeyHeader = "Ocp-Apim-Subscription-Key";
         private const int MaxNrOfResults = 50;
