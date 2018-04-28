@@ -2,8 +2,9 @@
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
 using SearchScraper.Exceptions;
+using SearchScraper.Modules.SearchEngines;
 
-namespace SearchScraper.Modules
+namespace SearchScraper.Modules.Factories
 {
     public class SearchEngineProviderFactory : ISearchEngineProviderFactory
     {
@@ -21,7 +22,7 @@ namespace SearchScraper.Modules
                 case SearchEngine.Google:
                     return (ISearchEngineProvider)_serviceProvider.GetService(typeof(GoogleEngine));
                 default:
-                    throw new InvalidSearchEngineException();
+                    throw new InvalidSearchEngineException(searchEngine.ToString());
             }
         }
     }

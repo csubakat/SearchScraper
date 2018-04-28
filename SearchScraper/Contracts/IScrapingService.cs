@@ -6,6 +6,6 @@ namespace SearchScraper.Contracts
 {
     public interface IScrapingService
     {
-        Task<IEnumerable<int>> GetSearchResults(SearchEngine searchEngine, string searchTerm, string stringToFind, int nrOfResults);
+        Task<IEnumerable<int>> GetSearchResultsAsync(SearchEngine searchEngine, string searchTerm, string stringToFind, int nrOfResults);
     }
 }

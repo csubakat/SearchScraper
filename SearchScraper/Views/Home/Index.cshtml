@@ -1,4 +1,4 @@
-﻿@model IEnumerable<int>
+﻿@model SearchViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,31 +6,37 @@
 
 <div class="container">
     <div class="row">
-        <form action="/Home/Search" method="post">
-            <div class="form-group">
-                <label for="searchTermInput">Search</label>
-                <input type="text" class="form-control" id="searchTermInput" placeholder="Enter term to search for" name="q" />
-            </div>
-            <div class="form-group">
-                <label for="stringToFindInput">Find</label>
-                <input type="text" class="form-control" id="stringToFindInput" placeholder="What to find" name="f" />
-            </div>
-            <div class="form-group">
-                <label for="nrOfResultsInput">Find</label>
-                <input type="number" class="form-control" id="nrOfResultsInput" placeholder="How many results" name="n" />
-            </div>
-            <div class="form-group">
-                <label for="engineInput">Find</label>
-                <input type="text" class="form-control" id="engineInput" placeholder="Which engine" name="engine" />
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
-    <div class="row">
-        @if (Model != null)
+        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
         {
-            foreach (var result in Model)
+            <div class="row well">
+                <div class="form-group col-md-3">
+                    <label>Search</label>
+                    @Html.TextBoxFor(m => m.SearchTerm, null, new { @class = "form-control", @placeholder = "Enter term to search for" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Find</label>
+                    @Html.TextBoxFor(m => m.StringToFind, null, new { @class = "form-control", @placeholder = "Occurences to find" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Number of search results</label>
+                    @Html.DropDownListFor(m => m.NumberOfResultsString, Model.NumberOfResultsOptions, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Search engine</label>
+                    @Html.DropDownListFor(m => m.SearchEngine, Model.SearchEnginesOptions, new { @class = "form-control" })
+                </div>
+                
+                <div class="row col-md-2 col-md-offset-5">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="row">
+        @if (Model?.Occurences != null && Model.Occurences.Any())
+        {
+            foreach (var result in Model.Occurences)
             {
                 <div class="col-md-3">
                     <p>@result</p>

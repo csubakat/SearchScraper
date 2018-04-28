@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SearchScraper.Contracts;
 using SearchScraper.Entitities;
 
-namespace SearchScraper.Modules
+namespace SearchScraper.Modules.SearchEngines
 {
     public class GoogleEngine : SearchEngineProvider
     {
         private readonly SearchEngineProviderSetting _settings;
+        private readonly IWebClientFactory _webClientFactory;
 
-        public GoogleEngine(SearchEngineProviderSetting settings) : base(settings)
+        public GoogleEngine(SearchEngineProviderSetting settings, IWebClientFactory webClientFactory) : base(settings, webClientFactory)
         {
             _settings = settings;
+            _webClientFactory = webClientFactory;
         }
 
-        public override async Task<IEnumerable<int>> GetOccurences(string searchTerm, string stringToFind, int nrOfResults)
+        public override async Task<IEnumerable<int>> GetOccurencesAsync(string searchTerm, string stringToFind, int nrOfResults)
         {
             string html;
 
-            //TODO create wrapper for WebClient http://brunov.info/blog/2013/07/30/tdd-mocking-system-net-webclient/
-            using (var webClient = new WebClient())
+            using (var webClient = _webClientFactory.Create())
             {
                 html = await webClient.DownloadStringTaskAsync(CreateQueryUrl(_settings, searchTerm, nrOfResults));
             }

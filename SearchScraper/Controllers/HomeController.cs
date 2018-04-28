@@ -20,21 +20,24 @@ namespace SearchScraper.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new SearchViewModel();
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(string engine, string q, string f, int n = 100)
+        public async Task<IActionResult> Search(SearchViewModel model)
         {
-            var invalidSearchEngineMessage = $"{engine} is not supported yet.";
-
-            if (!Enum.TryParse(engine, true, out SearchEngine searchEngineEnum))
-                return BadRequest(invalidSearchEngineMessage);
-
             try
             {
-                var results = await _scrapingService.GetSearchResults(searchEngineEnum, q, f, n).ConfigureAwait(false);
-                return View("Index", results);
+                if (!Enum.TryParse(model.SearchEngine, true, out SearchEngine searchEngineEnum))
+                    throw new InvalidSearchEngineException(model.SearchEngine);
+
+                if (!int.TryParse(model.NumberOfResultsString, out var numberOfResults))
+                    throw new ArgumentException("Number of results must be an integer.");
+
+                model.Occurences = await _scrapingService.GetSearchResultsAsync(searchEngineEnum, model.SearchTerm, model.StringToFind, numberOfResults).ConfigureAwait(false);
+                return View("Index", model);
             }
             catch (ArgumentException ex)
             {
@@ -42,7 +45,7 @@ namespace SearchScraper.Controllers
             }
             catch (InvalidSearchEngineException ex)
             {
-                return BadRequest(invalidSearchEngineMessage);
+                return BadRequest(ex.Message);
             }
         }
 

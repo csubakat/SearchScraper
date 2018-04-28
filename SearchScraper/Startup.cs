@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SearchScraper.Contracts;
 using SearchScraper.Entitities.Enums;
-using SearchScraper.Modules;
+using SearchScraper.Modules.Clients;
+using SearchScraper.Modules.Factories;
+using SearchScraper.Modules.SearchEngines;
 using SearchScraper.Services;
 
 namespace SearchScraper
@@ -26,6 +28,7 @@ namespace SearchScraper
 
             services.AddSingleton<ISearchEngineProviderFactory, SearchEngineProviderFactory>();
             services.AddSingleton<IScrapingService, ScrapingService>();
+            services.AddSingleton<IWebClient, SystemWebClient>();
 
 
             var builder = new ConfigurationBuilder()
@@ -34,8 +37,12 @@ namespace SearchScraper
 
             var configuration = builder.Build();
 
-            services.AddTransient<GoogleEngine>(s => new GoogleEngine(new SearchEngineProviderSettingsResolver(SearchEngine.Google, configuration)
-                .GetSettings()));
+            services.AddTransient<GoogleEngine>(s =>
+            {
+                var settings = new SearchEngineProviderSettingsResolver(SearchEngine.Google, configuration)
+                    .GetSettings();
+                return new GoogleEngine(settings, new WebClientFactory());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
