@@ -68,7 +68,8 @@ namespace SearchScraper.UnitTests
         private static string StringWithOccurences(string occuringString)
         {
             return
-                $"<div class=\"g\">{occuringString}</div><div class=\"g\">i like meat pies</div><div class=\"g\">{occuringString}</div><div class=\"g\">{occuringString}</div>";
+                $"<div class=\"g\">{occuringString}</div><div class=\"g\">i like meat pies</div>" +
+                $"<div class=\"g\">{occuringString}</div><div class=\"g\">{occuringString}</div>";
         }
 
         private static string StringWithoutOccurences()

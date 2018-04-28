@@ -21,6 +21,8 @@ namespace SearchScraper.Modules.Factories
             {
                 case SearchEngine.Google:
                     return (ISearchEngineProvider)_serviceProvider.GetService(typeof(GoogleEngine));
+                case SearchEngine.Bing:
+                    return (ISearchEngineProvider)_serviceProvider.GetService(typeof(BingEngine));
                 default:
                     throw new InvalidSearchEngineException(searchEngine.ToString());
             }

@@ -30,18 +30,19 @@ namespace SearchScraper
             services.AddSingleton<IScrapingService, ScrapingService>();
             services.AddSingleton<IWebClient, SystemWebClient>();
 
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            var configuration = builder.Build();
+            var appSettingsConfig = CreateConfiguration("appsettings.json");
 
             services.AddTransient<GoogleEngine>(s =>
             {
-                var settings = new SearchEngineProviderSettingsResolver(SearchEngine.Google, configuration)
+                var settings = new SearchEngineProviderSettingsResolver(SearchEngine.Google, appSettingsConfig)
                     .GetSettings();
                 return new GoogleEngine(settings, new WebClientFactory());
+            });
+            services.AddTransient<BingEngine>(s =>
+            {
+                var settings = new SearchEngineProviderSettingsResolver(SearchEngine.Bing, appSettingsConfig)
+                    .GetSettings();
+                return new BingEngine(settings, new WebClientFactory());
             });
         }
 
@@ -66,6 +67,15 @@ namespace SearchScraper
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private IConfiguration CreateConfiguration(string settingsFileName)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(settingsFileName);
+
+            return builder.Build();
         }
     }
 }
